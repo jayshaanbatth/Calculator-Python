@@ -10,7 +10,25 @@ This is the start of the calcuator program
 3. Test GUI code
 4. connect code to gui
 """
-
+# import the Calculator class here
 from calculator import Calculator
 
-print(Calculator.add(1,2))
+inputs = []
+stop = False
+
+while stop != True:
+    while '=' not in inputs:
+        inputs.append(input('Please enter a number or a operator symbol: '))
+        
+    if len(inputs) < 4:
+        print('That is not a full equation, try again!')
+    else:
+        while len(inputs) > 1:
+            del inputs[len(inputs)-1]
+            if 'x' in inputs:
+                index = inputs.index('x')
+                temp_num = Calculator.multiply(int(inputs[index-1]), int(inputs[index+1]))
+                inputs[index-1] = str(temp_num)
+                del inputs[index]
+                del inputs[index]
+        print(inputs[0])
