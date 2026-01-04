@@ -10,3 +10,7 @@ This is the start of the calcuator program
 3. Test GUI code
 4. connect code to gui
 """
+
+from calculator import Calculator
+
+print(Calculator.add(1,2))
