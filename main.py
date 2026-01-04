@@ -31,4 +31,24 @@ while stop != True:
                 inputs[index-1] = str(temp_num)
                 del inputs[index]
                 del inputs[index]
+
+            elif '/' in inputs:
+                index = inputs.index('/')
+                temp_num = Calculator.divide(int(inputs[index-1]), int(inputs[index+1]))
+                inputs[index-1] = str(temp_num)
+                del inputs[index]
+                del inputs[index]
+            elif '+' in inputs:
+                index = inputs.index('+')
+                temp_num = Calculator.add(int(inputs[index-1]), int(inputs[index+1]))
+                inputs[index-1] = str(temp_num)
+                del inputs[index]
+                del inputs[index]
+            elif '-' in inputs:
+                index = inputs.index('-')
+                temp_num = Calculator.subtract(int(inputs[index-1]), int(inputs[index+1]))
+                inputs[index-1] = str(temp_num)
+                del inputs[index]
+                del inputs[index]
+
         print(inputs[0])
