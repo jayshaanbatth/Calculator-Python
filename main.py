@@ -17,14 +17,18 @@ inputs = []
 stop = False
 
 while stop != True:
-    while '=' not in inputs:
+    while '=' not in inputs and stop == False:
         inputs.append(input('Please enter a number or a operator symbol: '))
-        
-    if len(inputs) < 4:
+        if 'stop' in inputs:
+            stop = True
+    if stop == True:
+        print("Have a great day!")
+    elif len(inputs) < 4:
         print('That is not a full equation, try again!')
+        inputs.clear()
     else:
+        del inputs[len(inputs)-1]
         while len(inputs) > 1:
-            del inputs[len(inputs)-1]
             if 'x' in inputs:
                 index = inputs.index('x')
                 temp_num = Calculator.multiply(int(inputs[index-1]), int(inputs[index+1]))
@@ -48,7 +52,8 @@ while stop != True:
                 index = inputs.index('-')
                 temp_num = Calculator.subtract(int(inputs[index-1]), int(inputs[index+1]))
                 inputs[index-1] = str(temp_num)
-                del inputs[index]
+                del inputs[index+1]
                 del inputs[index]
 
         print(inputs[0])
+        inputs.clear()
