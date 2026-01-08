@@ -60,8 +60,23 @@ while stop != True:
 
 import FreeSimpleGUI as sg
 
-layout = [[sg.Text("Hello World")], [sg.Button("OK")]]
-window = sg.Window("Test Window", layout)
+display = [
+    [sg.Text("0", key="-DISPLAY-", size=(39, 4), justification="right")]
+]
+
+buttons = [
+    [sg.Button("7", key="-7-", size=(4, 2), pad=(5, 5)), sg.Button("8", key="-8-", size=(4, 2), pad=(5, 5)), sg.Button("9", key="-9-", size=(4, 2), pad=(5, 5))],
+    [sg.Button("4", key="-4-", size=(4, 2), pad=(5, 5)), sg.Button("5", key="-5-", size=(4, 2), pad=(5, 5)), sg.Button("6", key="-6-", size=(4, 2), pad=(5, 5))],
+    [sg.Button("1", key="-1-", size=(4, 2), pad=(5, 5)), sg.Button("2", key="-2-", size=(4, 2), pad=(5, 5)), sg.Button("3", key="-3-", size=(4, 2), pad=(5, 5))],
+    [sg.Button("0", key="-0-", size=(4, 2), pad=(5, 5)), sg.Button("AC", key="-AC-", size=(4, 2), pad=(5, 5)), sg.Button("=", key="-=-", size=(4, 2), pad=(5, 5))]
+]
+
+layout = [
+    [sg.Frame("Display", display)],
+    [sg.Frame("Keypad", buttons)]
+]
+
+window = sg.Window("Test Window", layout, margins=(200,300))
 
 while True:
     event, values = window.read()
