@@ -57,3 +57,16 @@ while stop != True:
 
         print(inputs[0])
         inputs.clear()
+
+import PySimpleGUI as sg
+
+layout = [[sg.Text("Hello World")], [sg.Button("OK")]]
+window = sg.Window("Test Window", layout)
+
+while True:
+    event, values = window.read()
+    if event == sg.WIN_CLOSED or event == "OK":
+        break
+
+window.close()
+
