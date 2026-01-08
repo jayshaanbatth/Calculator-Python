@@ -58,7 +58,7 @@ while stop != True:
         print(inputs[0])
         inputs.clear()
 
-import PySimpleGUI as sg
+import FreeSimpleGUI as sg
 
 layout = [[sg.Text("Hello World")], [sg.Button("OK")]]
 window = sg.Window("Test Window", layout)
