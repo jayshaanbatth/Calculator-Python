@@ -12,13 +12,22 @@ This is the start of the calcuator program
 """
 # import the Calculator class here
 from calculator import Calculator
+import FreeSimpleGUI as sg
 
 inputs = []
 stop = False
 
+
 def Calculate(inputs):
+    """
+    Takes in a list of inputs and returns the final outcome
+
+    Args:
+        inputs (list of ints): A list of inputs that consist of numbers and calculation symbols
+    """
     del inputs[len(inputs)-1]
     while len(inputs) > 1:
+        
         if 'x' in inputs:
             index = inputs.index('x')
             temp_num = Calculator.multiply(int(inputs[index-1]), int(inputs[index+1]))
@@ -32,12 +41,14 @@ def Calculate(inputs):
             inputs[index-1] = str(temp_num)
             del inputs[index]
             del inputs[index]
+        
         elif '+' in inputs:
             index = inputs.index('+')
             temp_num = Calculator.add(int(inputs[index-1]), int(inputs[index+1]))
             inputs[index-1] = str(temp_num)
             del inputs[index]
             del inputs[index]
+        
         elif '-' in inputs:
             index = inputs.index('-')
             temp_num = Calculator.subtract(int(inputs[index-1]), int(inputs[index+1]))
@@ -47,8 +58,10 @@ def Calculate(inputs):
     return inputs[0]
 
 
-import FreeSimpleGUI as sg
 
+"""
+GUI Initialization
+"""
 display = [
     [sg.Text("0", key="-DISPLAY-", size=(39, 4), justification="right")]
 ]
@@ -70,11 +83,23 @@ layout = [
 
 window = sg.Window("Calculator", layout, margins=(200,300))
 
+"""
+Application Loop
+"""
 while True:
-    while '=' not in inputs:
+    
+    # Ends once user presses '='
+    while '=' not in inputs: 
+        
+        # Temp input used to build up numbers and then join them and append to inputs
         temp_input = []
+        
         while True:
+            
+            # This detects what the user presses
             event, values = window.read()
+            
+            
             if event == "-0-":
                 temp_input.append("0")
                 window["-DISPLAY-"].update("".join(temp_input), text_color="white")
