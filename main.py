@@ -16,47 +16,35 @@ from calculator import Calculator
 inputs = []
 stop = False
 
-while stop != True:
-    while '=' not in inputs and stop == False:
-        inputs.append(input('Please enter a number or a operator symbol: '))
-        if 'stop' in inputs:
-            stop = True
-    if stop == True:
-        print("Have a great day!")
-    elif len(inputs) < 4:
-        print('That is not a full equation, try again!')
-        inputs.clear()
-    else:
-        del inputs[len(inputs)-1]
-        while len(inputs) > 1:
-            if 'x' in inputs:
-                index = inputs.index('x')
-                temp_num = Calculator.multiply(int(inputs[index-1]), int(inputs[index+1]))
-                inputs[index-1] = str(temp_num)
-                del inputs[index]
-                del inputs[index]
+def Calculate(inputs):
+    del inputs[len(inputs)-1]
+    while len(inputs) > 1:
+        if 'x' in inputs:
+            index = inputs.index('x')
+            temp_num = Calculator.multiply(int(inputs[index-1]), int(inputs[index+1]))
+            inputs[index-1] = str(temp_num)
+            del inputs[index]
+            del inputs[index]
 
-            elif '/' in inputs:
-                index = inputs.index('/')
-                temp_num = Calculator.divide(int(inputs[index-1]), int(inputs[index+1]))
-                inputs[index-1] = str(temp_num)
-                del inputs[index]
-                del inputs[index]
-            elif '+' in inputs:
-                index = inputs.index('+')
-                temp_num = Calculator.add(int(inputs[index-1]), int(inputs[index+1]))
-                inputs[index-1] = str(temp_num)
-                del inputs[index]
-                del inputs[index]
-            elif '-' in inputs:
-                index = inputs.index('-')
-                temp_num = Calculator.subtract(int(inputs[index-1]), int(inputs[index+1]))
-                inputs[index-1] = str(temp_num)
-                del inputs[index+1]
-                del inputs[index]
+        elif '/' in inputs:
+            index = inputs.index('/')
+            temp_num = Calculator.divide(int(inputs[index-1]), int(inputs[index+1]))
+            inputs[index-1] = str(temp_num)
+            del inputs[index]
+            del inputs[index]
+        elif '+' in inputs:
+            index = inputs.index('+')
+            temp_num = Calculator.add(int(inputs[index-1]), int(inputs[index+1]))
+            inputs[index-1] = str(temp_num)
+            del inputs[index]
+            del inputs[index]
+        elif '-' in inputs:
+            index = inputs.index('-')
+            temp_num = Calculator.subtract(int(inputs[index-1]), int(inputs[index+1]))
+            inputs[index-1] = str(temp_num)
+            del inputs[index+1]
+            del inputs[index]
 
-        print(inputs[0])
-        inputs.clear()
 
 import FreeSimpleGUI as sg
 
@@ -68,7 +56,10 @@ buttons = [
     [sg.Button("7", key="-7-", size=(4, 2), pad=(5, 5)), sg.Button("8", key="-8-", size=(4, 2), pad=(5, 5)), sg.Button("9", key="-9-", size=(4, 2), pad=(5, 5))],
     [sg.Button("4", key="-4-", size=(4, 2), pad=(5, 5)), sg.Button("5", key="-5-", size=(4, 2), pad=(5, 5)), sg.Button("6", key="-6-", size=(4, 2), pad=(5, 5))],
     [sg.Button("1", key="-1-", size=(4, 2), pad=(5, 5)), sg.Button("2", key="-2-", size=(4, 2), pad=(5, 5)), sg.Button("3", key="-3-", size=(4, 2), pad=(5, 5))],
-    [sg.Button("0", key="-0-", size=(4, 2), pad=(5, 5)), sg.Button("AC", key="-AC-", size=(4, 2), pad=(5, 5)), sg.Button("=", key="-=-", size=(4, 2), pad=(5, 5))]
+    [sg.Button("0", key="-0-", size=(4, 2), pad=(5, 5)), sg.Button("+", key="-+-", size=(4, 2), pad=(5, 5)), sg.Button("-", key="---", size=(4, 2), pad=(5, 5))],
+    [sg.Button("x", key="-x-", size=(4, 2), pad=(5, 5)), sg.Button("/", key="-/-", size=(4, 2), pad=(5, 5)), sg.Button("=", key="-=-", size=(4, 2), pad=(5, 5))],
+    [sg.Button("AC", key="-AC-", size=(4, 2), pad=(5, 5))]
+
 ]
 
 layout = [
@@ -80,6 +71,67 @@ window = sg.Window("Test Window", layout, margins=(200,300))
 
 while True:
     event, values = window.read()
+    while '=' not in inputs:
+        temp_input = []
+        while True:
+            if event == "-0-":
+                temp_input.append("0")
+                window("-DISPLAY-").update(value="0", text_color="white")
+            elif event == "-1-":
+                temp_input.append("1")
+                window("-DISPLAY-").update(value="1", text_color="white")
+            elif event == "-2-":
+                temp_input.append("2")
+                window("-DISPLAY-").update(value="2", text_color="white")
+            elif event == "-3-":
+                temp_input.append("3")
+                window("-DISPLAY-").update(value="3", text_color="white")
+            elif event == "-4-":
+                temp_input.append("4")
+                window("-DISPLAY-").update(value="4", text_color="white")
+            elif event == "-5-":
+                temp_input.append("5")
+                window("-DISPLAY-").update(value="5", text_color="white")
+            elif event == "-6-":
+                temp_input.append("6")
+                window("-DISPLAY-").update(value="6", text_color="white")
+            elif event == "-7-":
+                temp_input.append("7")
+                window("-DISPLAY-").update(value="7", text_color="white")
+            elif event == "-8-":
+                temp_input.append("8")
+                window("-DISPLAY-").update(value="8", text_color="white")
+            elif event == "-9-":
+                temp_input.append("9")
+                window("-DISPLAY-").update(value="9", text_color="white")
+            elif event == "-+-":
+                inputs.append(temp_input.join())
+                inputs.append("+")
+                temp_input.clear()
+                break
+            elif event == "---":
+                inputs.append(temp_input.join())
+                inputs.append("-")
+                temp_input.clear()
+                break
+            elif event == "-x-":
+                inputs.append(temp_input.join())
+                inputs.append("x")
+                temp_input.clear()
+                break
+            elif event == "-/-":
+                inputs.append(temp_input.join())
+                inputs.append("/")
+                temp_input.clear()
+                break
+
+    if len(inputs) < 4:
+        window("-DISPLAY-").update(value="Error", text_color="red")
+        inputs.clear()
+
+        
+
+    inputs.clear()
     if event == sg.WIN_CLOSED or event == "OK":
         break
 
