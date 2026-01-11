@@ -44,6 +44,7 @@ def Calculate(inputs):
             inputs[index-1] = str(temp_num)
             del inputs[index+1]
             del inputs[index]
+    return inputs[0]
 
 
 import FreeSimpleGUI as sg
@@ -128,23 +129,25 @@ while True:
                 inputs.append("".join(temp_input))
                 inputs.append("=")
                 temp_input.clear()
+                break
             elif event == "-AC-":
                 temp_input.clear()
                 inputs.clear()
                 window["-DISPLAY-"].update("0", text_color="white")
-               
-    if len(inputs) < 4:
+            elif event == sg.WIN_CLOSED:
+                break # EXIT once
+        if event == sg.WIN_CLOSED:
+            break # EXIT twice
+    if event == sg.WIN_CLOSED:
+        break # EXIT thrice
+    elif len(inputs) < 4:
         window["-DISPLAY-"].update("Error", text_color="red")
         inputs.clear()
     else:
-        #FINISH CODING RIGHT HERE, work on the function call and what it will return
-        #some problem with the error catch or AC display and reading when window closed
+        #NEED TO FIX ALL BRACKETS
+        window["-DISPLAY-"].update(Calculate(inputs), text_color="white")
         inputs.clear()
         
-
-   
-    if event == sg.WIN_CLOSED or event == "OK":
-        break
 
 window.close()
 
