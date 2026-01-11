@@ -68,7 +68,7 @@ layout = [
     [sg.Frame("Keypad", buttons)]
 ]
 
-window = sg.Window("Test Window", layout, margins=(200,300))
+window = sg.Window("Calculator", layout, margins=(200,300))
 
 while True:
     while '=' not in inputs:
@@ -104,7 +104,7 @@ while True:
                 window["-DISPLAY-"].update("".join(temp_input), text_color="white")
             elif event == "-9-":
                 temp_input.append("9")
-                window("-DISPLAY-").update("".join(temp_input), text_color="white")
+                window["-DISPLAY-"].update("".join(temp_input), text_color="white")
             elif event == "-+-":
                 inputs.append("".join(temp_input))
                 inputs.append("+")
