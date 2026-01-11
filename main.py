@@ -70,68 +70,79 @@ layout = [
 window = sg.Window("Test Window", layout, margins=(200,300))
 
 while True:
-    event, values = window.read()
     while '=' not in inputs:
         temp_input = []
         while True:
+            event, values = window.read()
             if event == "-0-":
                 temp_input.append("0")
-                window("-DISPLAY-").update(value="0", text_color="white")
+                window["-DISPLAY-"].update("".join(temp_input), text_color="white")
             elif event == "-1-":
                 temp_input.append("1")
-                window("-DISPLAY-").update(value="1", text_color="white")
+                window["-DISPLAY-"].update("".join(temp_input), text_color="white")
             elif event == "-2-":
                 temp_input.append("2")
-                window("-DISPLAY-").update(value="2", text_color="white")
+                window["-DISPLAY-"].update("".join(temp_input), text_color="white")
             elif event == "-3-":
                 temp_input.append("3")
-                window("-DISPLAY-").update(value="3", text_color="white")
+                window["-DISPLAY-"].update("".join(temp_input), text_color="white")
             elif event == "-4-":
                 temp_input.append("4")
-                window("-DISPLAY-").update(value="4", text_color="white")
+                window["-DISPLAY-"].update("".join(temp_input), text_color="white")
             elif event == "-5-":
                 temp_input.append("5")
-                window("-DISPLAY-").update(value="5", text_color="white")
+                window["-DISPLAY-"].update("".join(temp_input), text_color="white")
             elif event == "-6-":
                 temp_input.append("6")
-                window("-DISPLAY-").update(value="6", text_color="white")
+                window["-DISPLAY-"].update("".join(temp_input), text_color="white")
             elif event == "-7-":
                 temp_input.append("7")
-                window("-DISPLAY-").update(value="7", text_color="white")
+                window["-DISPLAY-"].update("".join(temp_input), text_color="white")
             elif event == "-8-":
                 temp_input.append("8")
-                window("-DISPLAY-").update(value="8", text_color="white")
+                window["-DISPLAY-"].update("".join(temp_input), text_color="white")
             elif event == "-9-":
                 temp_input.append("9")
-                window("-DISPLAY-").update(value="9", text_color="white")
+                window("-DISPLAY-").update("".join(temp_input), text_color="white")
             elif event == "-+-":
-                inputs.append(temp_input.join())
+                inputs.append("".join(temp_input))
                 inputs.append("+")
                 temp_input.clear()
                 break
             elif event == "---":
-                inputs.append(temp_input.join())
+                inputs.append("".join(temp_input))
                 inputs.append("-")
                 temp_input.clear()
                 break
             elif event == "-x-":
-                inputs.append(temp_input.join())
+                inputs.append("".join(temp_input))
                 inputs.append("x")
                 temp_input.clear()
                 break
             elif event == "-/-":
-                inputs.append(temp_input.join())
+                inputs.append("".join(temp_input))
                 inputs.append("/")
                 temp_input.clear()
                 break
-
+            elif event == "-=-":
+                inputs.append("".join(temp_input))
+                inputs.append("=")
+                temp_input.clear()
+            elif event == "-AC-":
+                temp_input.clear()
+                inputs.clear()
+                window["-DISPLAY-"].update("0", text_color="white")
+               
     if len(inputs) < 4:
-        window("-DISPLAY-").update(value="Error", text_color="red")
+        window["-DISPLAY-"].update("Error", text_color="red")
         inputs.clear()
-
+    else:
+        #FINISH CODING RIGHT HERE, work on the function call and what it will return
+        #some problem with the error catch or AC display and reading when window closed
+        inputs.clear()
         
 
-    inputs.clear()
+   
     if event == sg.WIN_CLOSED or event == "OK":
         break
 
