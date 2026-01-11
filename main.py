@@ -67,12 +67,12 @@ display = [
 ]
 
 buttons = [
-    [sg.Button("7", key="-7-", size=(4, 2), pad=(5, 5)), sg.Button("8", key="-8-", size=(4, 2), pad=(5, 5)), sg.Button("9", key="-9-", size=(4, 2), pad=(5, 5))],
-    [sg.Button("4", key="-4-", size=(4, 2), pad=(5, 5)), sg.Button("5", key="-5-", size=(4, 2), pad=(5, 5)), sg.Button("6", key="-6-", size=(4, 2), pad=(5, 5))],
-    [sg.Button("1", key="-1-", size=(4, 2), pad=(5, 5)), sg.Button("2", key="-2-", size=(4, 2), pad=(5, 5)), sg.Button("3", key="-3-", size=(4, 2), pad=(5, 5))],
-    [sg.Button("0", key="-0-", size=(4, 2), pad=(5, 5)), sg.Button("+", key="-+-", size=(4, 2), pad=(5, 5)), sg.Button("-", key="---", size=(4, 2), pad=(5, 5))],
-    [sg.Button("x", key="-x-", size=(4, 2), pad=(5, 5)), sg.Button("/", key="-/-", size=(4, 2), pad=(5, 5)), sg.Button("=", key="-=-", size=(4, 2), pad=(5, 5))],
-    [sg.Button("AC", key="-AC-", size=(4, 2), pad=(5, 5))]
+    [sg.Button("7", key="7", size=(4, 2), pad=(5, 5)), sg.Button("8", key="8", size=(4, 2), pad=(5, 5)), sg.Button("9", key="9", size=(4, 2), pad=(5, 5))],
+    [sg.Button("4", key="4", size=(4, 2), pad=(5, 5)), sg.Button("5", key="5", size=(4, 2), pad=(5, 5)), sg.Button("6", key="6", size=(4, 2), pad=(5, 5))],
+    [sg.Button("1", key="1", size=(4, 2), pad=(5, 5)), sg.Button("2", key="2", size=(4, 2), pad=(5, 5)), sg.Button("3", key="3", size=(4, 2), pad=(5, 5))],
+    [sg.Button("0", key="0", size=(4, 2), pad=(5, 5)), sg.Button("+", key="+", size=(4, 2), pad=(5, 5)), sg.Button("-", key="-", size=(4, 2), pad=(5, 5))],
+    [sg.Button("x", key="x", size=(4, 2), pad=(5, 5)), sg.Button("/", key="/", size=(4, 2), pad=(5, 5)), sg.Button("=", key="=", size=(4, 2), pad=(5, 5))],
+    [sg.Button("AC", key="AC", size=(4, 2), pad=(5, 5))]
 
 ]
 
@@ -88,81 +88,57 @@ Application Loop
 """
 while True:
     
+    stop = False
+    
     # Ends once user presses '='
-    while '=' not in inputs: 
+    while '=' not in inputs and stop == False: 
         
         # Temp input used to build up numbers and then join them and append to inputs
         temp_input = []
-        
-        while True:
+        temp_stop = False
+
+        while temp_stop == False:
             
             # This detects what the user presses
             event, values = window.read()
             
             
-            if event == "-0-":
-                temp_input.append("0")
+            if event.isdigit():
+                temp_input.append(event)
                 window["-DISPLAY-"].update("".join(temp_input), text_color="white")
-            elif event == "-1-":
-                temp_input.append("1")
-                window["-DISPLAY-"].update("".join(temp_input), text_color="white")
-            elif event == "-2-":
-                temp_input.append("2")
-                window["-DISPLAY-"].update("".join(temp_input), text_color="white")
-            elif event == "-3-":
-                temp_input.append("3")
-                window["-DISPLAY-"].update("".join(temp_input), text_color="white")
-            elif event == "-4-":
-                temp_input.append("4")
-                window["-DISPLAY-"].update("".join(temp_input), text_color="white")
-            elif event == "-5-":
-                temp_input.append("5")
-                window["-DISPLAY-"].update("".join(temp_input), text_color="white")
-            elif event == "-6-":
-                temp_input.append("6")
-                window["-DISPLAY-"].update("".join(temp_input), text_color="white")
-            elif event == "-7-":
-                temp_input.append("7")
-                window["-DISPLAY-"].update("".join(temp_input), text_color="white")
-            elif event == "-8-":
-                temp_input.append("8")
-                window["-DISPLAY-"].update("".join(temp_input), text_color="white")
-            elif event == "-9-":
-                temp_input.append("9")
-                window["-DISPLAY-"].update("".join(temp_input), text_color="white")
-            elif event == "-+-":
+            elif event == "+":
                 inputs.append("".join(temp_input))
                 inputs.append("+")
                 temp_input.clear()
-                break
-            elif event == "---":
+                temp_stop = True
+            elif event == "-":
                 inputs.append("".join(temp_input))
                 inputs.append("-")
                 temp_input.clear()
-                break
-            elif event == "-x-":
+                temp_stop = True
+            elif event == "x":
                 inputs.append("".join(temp_input))
                 inputs.append("x")
                 temp_input.clear()
-                break
-            elif event == "-/-":
+                temp_stop = True
+            elif event == "/":
                 inputs.append("".join(temp_input))
                 inputs.append("/")
                 temp_input.clear()
-                break
-            elif event == "-=-":
+                temp_stop = True
+            elif event == "=":
                 inputs.append("".join(temp_input))
                 inputs.append("=")
                 temp_input.clear()
-                break
-            elif event == "-AC-":
+                temp_stop = True
+            elif event == "AC":
                 temp_input.clear()
                 inputs.clear()
                 window["-DISPLAY-"].update("0", text_color="white")
             elif event == sg.WIN_CLOSED:
-                break # EXIT once
-        if event == sg.WIN_CLOSED:
-            break # EXIT twice
+                temp_stop = True
+                stop = True
+    
     if event == sg.WIN_CLOSED:
         break # EXIT thrice
     elif len(inputs) < 4:
