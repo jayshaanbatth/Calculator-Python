@@ -63,7 +63,7 @@ def Calculate(inputs):
 GUI Initialization
 """
 display = [
-    [sg.Text("0", key="-DISPLAY-", size=(39, 4), justification="right")]
+    [sg.Text("0", key="-DISPLAY-", justification="right")]
 ]
 
 buttons = [
@@ -81,7 +81,7 @@ layout = [
     [sg.Frame("Keypad", buttons)]
 ]
 
-window = sg.Window("Calculator", layout, margins=(200,300))
+window = sg.Window("Calculator", layout)
 
 """
 Application Loop
